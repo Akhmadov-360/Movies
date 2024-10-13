@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+<body class="bg-black">
+    <div class="flex flex-col w-full gap-3 bg-[#000000]">
+
+        <!-- Toast элемент -->
+      <div id="toast" class="z-10 fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
+        <p id="toast-message"></p>
+      </div>
+        <header class="w-full h-[112px] bg-[#000000] flex justify-center items-center gap-[24px] text-white">
+          <div class="flex justify-center items-center gap-[16px]">
+            <a href="/movie/index.html" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Home</a>
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Genre</a>
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Country</a>
+          </div> 
+          <form class="relative" id="form">
+            <input type="text" id="search" placeholder="Search movies..." class="w-[416px] h-[48px] rounded-[25px] text-black font-normal text-[16px] leading-6 py-[24px] px-[16px] outline-none">
+            <button id="clear-button" class="absolute right-4 top-1/2 transform -translate-y-1/2 hidden text-black cursor-pointer"><i class='bx bx-x bx-sm'></i></button>
+          </form>
+          <div class="flex justify-center items-center gap-[16px]">
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Movies</a>
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Series</a>
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Animation</a>
+            <a href="./fav.html" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Favorites<span id="fav-count" class="bg-[#FF0000] text-white text-[12px] w-[31px] h-[32px] rounded-[5px] px-[8px] py-[4px] relative top-[-5px] left-[5px]"></span></a>
+        </div>
+          <div class="flex justify-center items-center gap-[16px]">
+            <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Login/Signup</a>
+            <i class='bx bx-bell bx-sm'></i>
+          </div>
+        </header>
+        <main id="main" class="flex flex-wrap flex-col justify-center items-center gap-4 mt-8 bg-[#000000] px-1">
+            <div id="fav-total"></div>
+            <div id="fav-items" class="flex items-start justify-center flex-wrap"></div>
+        </main>
+      </div>
+    <script src="../JS/fav.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+    integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+</body>
+</html>

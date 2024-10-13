@@ -6,12 +6,17 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Vite App</title>
   </head>
-  <body class="m-0 p-0 box-border">
+  <body class="m-0 p-0 box-border bg-black">
 
-    <div class="flex flex-col w-full h-[100vh]">
+    <div class="flex flex-col w-full gap-3">
+      <!-- Toast элемент -->
+      <div id="toast" class="z-10 fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
+        <p id="toast-message"></p>
+      </div>
+
       <header class="w-full h-[112px] bg-[#000000] flex justify-center items-center gap-[24px] text-white">
         <div class="flex justify-center items-center gap-[16px]">
-          <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Home</a>
+          <a href="./index.html" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Home</a>
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Genre</a>
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Country</a>
         </div> 
@@ -23,15 +28,16 @@
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Movies</a>
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Series</a>
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Animation</a>
+          <a href="./src/pages/fav.html" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Favorites<span id="fav-count" class="bg-[#FF0000] text-white text-[12px] w-[31px] h-[32px] rounded-[5px] px-[8px] py-[4px] relative top-[-5px] left-[5px]"></span></a>
         </div>
         <div class="flex justify-center items-center gap-[16px]">
           <a href="#" class="relative hover:border-b-2 hover:border-red-500 transition duration-100">Login/Signup</a>
           <i class='bx bx-bell bx-sm'></i>
         </div>
       </header>
-
-      <main id="main" class="flex flex-wrap justify-center items-center gap-4 mt-8">
-
+      <h1 class="text-white font-bold text-[24px] leading-9 m-0 px-[135px]">New Realese - Movies</h1>
+      <main id="main" class="flex flex-wrap justify-center items-center gap-4 mt-8 bg-[#000000] px-1">
+        
       </main>
     </div>
 
