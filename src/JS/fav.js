@@ -31,13 +31,13 @@ async function renderFav() {
     const movie = await getMovieDetails(favorites[i]);
 
     const favItemEl = document.createElement("div");
-    favItemEl.classList.add("fav-item", "w-[256px]", "h-[450px]", "rounded-[10px]", "relative", "bg-black", "overflow-hidden", "group", "p-4", "text-white");
+    favItemEl.classList.add("fav-item", "w-[256px]", "h-[480px]", "rounded-[10px]", "relative", "bg-black", "overflow-hidden", "group", "p-4", "text-white");
 
     favItemEl.innerHTML = `
       <img src="${IMG_PATH + movie.poster_path}" alt="${movie.title}" class="w-full h-[344px] object-cover rounded-[10px] bg-black">
       <h4 class="text-lg font-bold mt-2">${movie.title}</h4>
       <p class="text-sm">${movie.release_date}</p>
-      <button class="text-xs mt-2 px-2 py-1 bg-red-400 rounded hover:bg-red-500" onclick="removeFromFav(${i})">Remove from Favourites</button>
+      <button class="text-xs mt-2 px-2 py-1 bg-gray-300 rounded-[10px] hover:bg-gray-400 text-black" onclick="removeFromFav(${i})">Remove from Favourites</button>
     `;
 
     favItemsDiv.appendChild(favItemEl);

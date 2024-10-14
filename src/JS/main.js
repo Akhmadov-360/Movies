@@ -39,10 +39,10 @@ function showMovies(movies) {
 
         const isFavourite = favorites.includes(id);
         const favouriteBtnText = isFavourite ? "Remove from Favourites" : "Add to Favourites";
-        const favouriteBtnClass = isFavourite ? "bg-red-400 hover:bg-red-500" : "bg-gray-300 hover:bg-gray-400";
+        const favouriteBtnClass = isFavourite ? "bg-gray-300 hover:bg-gray-400" : "bg-[#FF0000] hover:bg-[#FF4D4D] active:bg-[#CC0000]";
 
         const movieEl = document.createElement("div");
-        movieEl.classList.add("movie", "w-[256px]", "h-[450px]", "rounded-[10px]", "relative", "bg-black", "overflow-hidden", "group");
+        movieEl.classList.add("movie", "w-[256px]", "h-[480px]", "rounded-[10px]", "relative", "bg-black", "overflow-hidden", "group");
         movieEl.innerHTML = `
         <img src="${IMG_PATH + poster_path}" alt="${title}" class="w-full h-[344px] object-cover rounded-[10px] bg-black">
         <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">${original_language.toUpperCase()}</div>
@@ -50,14 +50,21 @@ function showMovies(movies) {
         <div class="movie-info p-2 bg-[#000000] flex flex-col items-start">
           <h3 class="text-[16px] leading-6 font-medium text-white">${title}</h3>
           <p class="text-[14px] leading-6 font-normal text-white">${release_date}</p>
-          <button class="favourite-btn text-xs mt-2 px-2 py-1 ${favouriteBtnClass} rounded">${favouriteBtnText}</button>
+          <button class="favourite-btn text-xs mt-2 px-2 py-1 ${favouriteBtnClass} rounded-[10px]">${favouriteBtnText}</button>
         </div>
         `;
+
+        movieEl.addEventListener("click", () => {
+          window.location.href = `../src/pages/movieById.html?id=${movie.id}`;
+        });
         
         main.appendChild(movieEl);
 
         const favoriteBtn = movieEl.querySelector('.favourite-btn');
-        favoriteBtn.addEventListener("click", () => toggleFavourite(id, favoriteBtn, title));
+        favoriteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavourite(id, favoriteBtn, title);
+        });
     });
 }
 
@@ -69,15 +76,15 @@ function toggleFavourite(id, button, title) {
   if (isFavourite(id)) {
     favorites.splice(favorites.indexOf(id), 1);
     button.textContent = "Add to Favourites";
-    button.classList.remove("bg-red-400", "hover:bg-red-500");
-    button.classList.add("bg-gray-300", "hover:bg-gray-400");
+    button.classList.remove("bg-gray-300", "hover:bg-gray-400");
+    button.classList.add("bg-[#FF0000]", "hover:bg-[#FF4D4D]", "active:bg-[#CC0000]");
     
     showToast(`"${title}" removed from Favourites`);
   } else {
     favorites.push(id);
     button.textContent = "Remove from Favourites";
-    button.classList.remove("bg-gray-300", "hover:bg-gray-400");
-    button.classList.add("bg-red-400", "hover:bg-red-500");
+    button.classList.remove("bg-[#FF0000]", "hover:bg-[#FF4D4D]", "active:bg-[#CC0000]");
+    button.classList.add("bg-gray-300", "hover:bg-gray-400");
     
     showToast(`"${title}" added to Favourites`);
   }
@@ -106,10 +113,18 @@ const toast = document.getElementById("toast");
 const toastMessage = document.getElementById("toast-message");
 
 function showToast(message) {
-  toastMessage.textContent = message;
-  toast.classList.add("opacity-100", "pointer-events-auto");
+  const toast = document.createElement("div");
+  toast.className = "fixed bottom-4 right-4 bg-gray-800 text-white text-sm py-2 px-4 rounded-lg shadow-lg opacity-0 transform translate-y-4 transition-all duration-500 ease-in-out";
+  toast.innerHTML = message;
+
+  document.body.appendChild(toast);
 
   setTimeout(() => {
-    toast.classList.remove("opacity-100", "pointer-events-auto");
+    toast.classList.remove("opacity-0", "translate-y-4");
+  }, 100);
+
+  setTimeout(() => {
+    toast.classList.add("opacity-0", "translate-y-4");
+    setTimeout(() => toast.remove(), 500);
   }, 3000);
 }
