@@ -3,10 +3,13 @@ const API_URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.
 
 const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 const SEARCH_API = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&query=";
+const genres_api = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
 
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 const main = document.getElementById("main");
+const genersEl = document.getElementById("geners");
+const hideBtn = document.getElementById("hide");
 
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 const favCount = document.getElementById("fav-count");
@@ -15,23 +18,66 @@ function updateFavCount() {
   favCount.textContent = favorites.length;
 }
 
+let moviesToShow = 10;
+let movies = [];
+
+// Geners Movies
+let selctedGeners = [];
+// Chart Bar
+let releaseYears = {};
+
+async function getGeners() {
+  const res = await fetch(genres_api);
+  const data = await res.json();
+  uiDisplayGenres(data.genres);
+}
+
+function uiDisplayGenres(genres) {
+  genersEl.innerHTML = "";
+  genres.forEach((genre) => {
+    const genreEl = document.createElement("button");
+    genreEl.innerText = genre.name;
+    genreEl.id = genre.id;
+
+    genreEl.className = "p-[10px] rounded-[10px] text-center h-[44px] bg-[#ffffff] text-black font-semibold text-[16px] m-2 leading-6 hover:bg-gray-200 active:bg-gray-400 transition duration-75"
+
+    genreEl.addEventListener("click", () => selectGenre(genre.id));
+    genersEl.appendChild(genreEl);
+  });
+}
+
+function selectGenre(id) {
+  if (selctedGeners.includes(id)) {
+    selctedGeners = selctedGeners.filter((genreId) => genreId !== id);
+  } else {
+    selctedGeners.push(id);
+  }
+
+  const genreString = selctedGeners.length ? `&with_genres=${selctedGeners.join(",")}` : "";
+  getMovies(API_URL + genreString);
+}
+
+getGeners();
+
 getMovies(API_URL);
 
 async function getMovies(url) {
     const res = await fetch(url);
     const data = await res.json();
-    showMovies(data.results);
+    movies = data.results;
+    showMovies(movies);
 }
 
 function showMovies(movies) {
     main.innerHTML = "";
-    movies.forEach((movie) => {
+    const moviesToDisplay = movies.slice(0, moviesToShow);
+    moviesToDisplay.forEach((movie) => {
         const { id, title, poster_path, vote_average, original_language, overview, release_date } = movie;
 
         let voteColor = '';
-        if (vote_average >= 8) {
+        if (vote_average >= 7) {
             voteColor = 'text-green-500';
-        } else if (vote_average >= 5) {
+        } else if (vote_average >= 4) {
             voteColor = 'text-yellow-500';
         } else {
             voteColor = 'text-red-500';
@@ -65,8 +111,32 @@ function showMovies(movies) {
           e.stopPropagation();
           toggleFavourite(id, favoriteBtn, title);
         });
+
+        const loadMoreBtn = document.getElementById("load-more");
+        if (moviesToShow >= movies.length) {
+            loadMoreBtn.style.display = 'none'; 
+        } else {
+            loadMoreBtn.style.display = 'block';
+        }
+
+        if (moviesToShow >= movies.length) {
+          hideBtn.style.display = 'block';
+        } else {
+          hideBtn.style.display = 'none';
+        }
     });
 }
+
+const loadMoreBtn = document.getElementById("load-more");
+loadMoreBtn.addEventListener("click", () => {
+    moviesToShow += 10; 
+    showMovies(movies);
+});
+
+hideBtn.addEventListener("click", () => {
+  moviesToShow = 10; 
+  showMovies(movies); 
+});
 
 function isFavourite(id) {
   return favorites.includes(id);

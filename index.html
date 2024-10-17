@@ -8,7 +8,7 @@
   </head>
   <body class="m-0 p-0 box-border bg-black">
 
-    <div class="flex flex-col w-full gap-3">
+    <div class="flex flex-col w-full gap-3 items-center">
       <!-- Toast элемент -->
       <div id="toast" class="z-10 fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
         <p id="toast-message"></p>
@@ -35,10 +35,12 @@
           <i class='bx bx-bell bx-sm'></i>
         </div>
       </header>
-      <h1 class="text-white font-bold text-[24px] leading-9 m-0 px-[135px]">New Realese - Movies</h1>
-      <main id="main" class="flex flex-wrap justify-center items-center gap-4 mt-8 bg-[#000000] px-1">
-        
+      <div id="geners" class="bg-[#000000] px-5"></div>
+      <h1 class="text-white font-bold text-[24px] leading-9 m-0 px-5">New Realese - Movies</h1>
+      <main id="main" class="grid grid-cols-5 justify-center items-center gap-4 mt-8 bg-[#000000] px-5">
       </main>
+      <button id="load-more" class="mt-2 mb-3 px-4 py-2 w-[350px] bg-red-600 text-white rounded-[8px] hover:bg-red-700 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Load More</button>
+      <button id="hide" class="mt-2 mb-3 px-4 py-2 w-[350px] bg-red-600 text-white rounded-[8px] hover:bg-red-700 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">Hide</button>
     </div>
 
     <script src="https://cdn.tailwindcss.com"></script>
