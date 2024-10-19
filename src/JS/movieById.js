@@ -37,7 +37,7 @@ async function getMovieDetails(url) {
 function uiMovieDetails(movie) {
   const { title, poster_path, overview, status, release_date, vote_average, genres, production_countries, production_companies, runtime } = movie;
 
-  const genreBlocks = genres.map(genre => `<div class="p-[10px] rounded-[10px] text-center h-[44px] bg-[#ffffff] text-black font-semibold text-[16px] leading-6">${genre.name}</div>`).join('');
+  const genreBlocks = genres.map(genre => `<div class="p-[10px] rounded-[10px] flex flex-col items-center justify-center text-center h-[44px] bg-[#ffffff] text-black font-semibold text-[16px] leading-4">${genre.name}</div>`).join('');
   const countryNames = production_countries.map(country => country.name).join(', ');
   const studioNames = production_companies.map(name => name.name).join(', ');
 
